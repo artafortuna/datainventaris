@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventaris Pro - PT Arta Makmur Jaya Sentosa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <img id="companyLogo" src="https://github.com/artafortuna/website1/blob/main/logo%20amjs.png?raw=true" alt="Logo Perusahaan" class="logo-img">
+                <h1>PT Arta Makmur Jaya Sentosa</h1>
+            </div>
+            <button id="themeToggle" class="theme-btn" title="Ganti Mode">🌙</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2 id="formTitle">Input Data Barang Baru</h2>
+            <form id="inventoryForm">
+                <input type="hidden" id="editId" value="-1">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="itemCode">Kode Barang</label>
+                        <input type="text" id="itemCode" placeholder="Contoh: INV-001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemName">Nama Barang</label>
+                        <input type="text" id="itemName" placeholder="Masukkan nama barang" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemCategory">Kategori</label>
+                        <select id="itemCategory" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Elektronik">Elektronik</option>
+                            <option value="Furnitur">Furnitur</option>
+                            <option value="Alat Tulis">Alat Tulis</option>
+                            <option value="Kendaraan">Kendaraan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemQty">Jumlah</label>
+                        <input type="number" id="itemQty" min="1" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDate">Tanggal Masuk</label>
+                        <input type="date" id="itemDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Harga Satuan (Rp)</label>
+                        <input type="number" id="itemPrice" min="0" placeholder="Contoh: 1500000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemCondition">Kondisi</label>
+                        <select id="itemCondition" required>
+                            <option value="Baik">Baik</option>
+                            <option value="Rusak Ringan">Rusak Ringan</option>
+                            <option value="Servis">Dalam Perbaikan</option>
+                            <option value="Rusak Berat">Rusak Berat</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemNote">Catatan</label>
+                        <input type="text" id="itemNote" placeholder="Tambahkan catatan (opsional)">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" id="btnSubmit" class="btn-submit">Simpan Data</button>
+                    <button type="button" id="btnCancel" class="btn-cancel" style="display:none;">Batal Edit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card">
+            <div class="table-header">
+                <h2>Daftar Inventaris Aset</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari barang...">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori</th>
+                            <th>Jml</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Harga Satuan</th>
+                            <th>Kondisi</th>
+                            <th>Catatan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 PT Arta Makmur Jaya Sentosa. Hak Cipta Dilindungi. | Sistem Manajemen Inventaris v3.0 (IndexedDB)</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
