@@ -11,11 +11,11 @@ let inventoryCache = []; // Cache lokal untuk fitur pencarian agar tetap cepat
 
 // --- 1. INISIALISASI INDEXED-DB ---
 const initDB = () => {
-    const request = indexedDB.open('AMJS_Database', 1);
+    // Nama database diubah menjadi 'AMJS_Database_Clean' agar mulai dari nol
+    const request = indexedDB.open('AMJS_Database_Clean', 1);
 
     request.onupgradeneeded = (event) => {
         db = event.target.result;
-        // Membuat tabel/store dengan 'id' sebagai kunci utama
         if (!db.objectStoreNames.contains('inventory')) {
             db.createObjectStore('inventory', { keyPath: 'id' });
         }
@@ -39,28 +39,7 @@ const loadData = () => {
 
     request.onsuccess = () => {
         inventoryCache = request.result;
-        if (inventoryCache.length === 0) {
-            insertDummyData(); // Masukkan data awal jika kosong
-        } else {
-            renderTable(inventoryCache);
-        }
-    };
-};
-
-// Masukkan data contoh untuk pengguna pertama kali
-const insertDummyData = () => {
-    const dummy = [
-        { id: 1001, code: 'INV-001', name: 'Laptop ASUS ROG', category: 'Elektronik', qty: 5, date: '2026-06-01', price: 15500000, condition: 'Baik', note: 'Ditugaskan ke tim IT' },
-        { id: 1002, code: 'INV-002', name: 'Meja Kantor Jati', category: 'Furnitur', qty: 12, date: '2026-06-15', price: 2500000, condition: 'Baik', note: '-' }
-    ];
-    
-    const transaction = db.transaction(['inventory'], 'readwrite');
-    const store = transaction.objectStore('inventory');
-    
-    dummy.forEach(item => store.add(item));
-    
-    transaction.oncomplete = () => {
-        loadData(); // Render setelah contoh masuk
+        renderTable(inventoryCache); // Langsung render apa adanya (kosong)
     };
 };
 
@@ -69,7 +48,7 @@ function renderTable(data = inventoryCache) {
     tableBody.innerHTML = '';
     
     if (data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 30px;">Data inventaris masih kosong atau tidak ditemukan.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 30px;">Data inventaris masih kosong. Silakan input data barang baru.</td></tr>`;
         return;
     }
 
